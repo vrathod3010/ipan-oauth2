@@ -5,12 +5,12 @@ const User = require('../models/user-models');
 
 
 passoprt.serializeUser((user,done)=>{
-    done(null,user.name);
+    done(null,user.username);
 });
 
 passoprt.deserializeUser((name,done)=>{
     User.findById(name).then((user)=>{
-        done(null,user.name);
+        done(null,user.username);
     });
 });
 
@@ -22,9 +22,9 @@ passoprt.use(
         clientSecret : keys.google.clientSecret
     },(accessToken,refreshToken,profile,done)=>{
         //passport callback function
-        console.log(profile.name);
+        console.log(profile.name.givenName);
 
-        User.findOne({username: profile.name}).then((currentUser)=>{
+        User.findOne({username: profile.name.givenName}).then((currentUser)=>{
             if(currentUser){
                 //already have the user
                 console.log('user is: ',currentUser);
@@ -32,7 +32,7 @@ passoprt.use(
             }else{
                 //create a new user
                 new User({
-                    username : profile.name,
+                    username : profile.name.givenName,
                     googleId : profile.sub
                 }).save().then((newUser) =>{
                     console.log("new user",newUser);
