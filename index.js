@@ -23,7 +23,7 @@ app.get('/google',passport.authenticate('google',{
     scope: ['profile']
 }));
 
-app.get('/google/callback',passport.authenticate('google'),(req,res)=>{
+app.get('/google/callback',(req,res)=>{
     res.send("callback comes here");
 });
 
