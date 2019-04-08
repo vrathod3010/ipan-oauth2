@@ -11,7 +11,7 @@ passoprt.use(
         clientSecret : keys.google.clientSecret
     },(accessToken,refreshToken,profile,done)=>{
         //passport callback function
-        console.log(profile.email);
+        //console.log(profile.email);
         new User({
             username : profile.name,
             googleId : profile.sub,
