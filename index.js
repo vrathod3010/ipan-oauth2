@@ -1,13 +1,17 @@
-var express = require('express');
-var app = express();
+const express = require('express');
+const app = express();
 var port = process.env.PORT || 3000;
-var passport = require('passport');
-var passportSetup = require('./config/passport-setup');
-var mongoose = require('mongoose');
+const passport = require('passport');
+const passportSetup = require('./config/passport-setup');
+const mongoose = require('mongoose');
 const keys = require('./config/keys');
 
 
+// set view engine
 app.set("view engine",'ejs');
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 mongoose.connect(keys.mongodb.dbURI,()=>{
