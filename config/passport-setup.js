@@ -27,7 +27,7 @@ passoprt.use(
         User.findOne({username: profile.name}).then((currentUser)=>{
             if(currentUser){
                 //already have the user
-                //console.log('user is: ',currentUser);
+                console.log('user is: ',currentUser);
                 done(null,currentUser);
             }else{
                 //create a new user
@@ -35,6 +35,7 @@ passoprt.use(
                     username : profile.name,
                     googleId : profile.sub
                 }).save().then((newUser) =>{
+                    console.log("new user",newUser);
                     done(null,newUser);
                 });
             }
