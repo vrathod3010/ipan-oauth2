@@ -26,7 +26,7 @@ passport.use(
         //passport callback function
         console.log(profile);
 
-        User.findOne({googleId: profile.sub}).then((currentUser)=>{
+        User.findOne({googleId: profile.id}).then((currentUser)=>{
             if(currentUser){
                 //already have the user
                 console.log('user is: ',currentUser);
@@ -34,7 +34,7 @@ passport.use(
             }else{
                 //create a new user
                 new User({
-                    googleId : profile.sub
+                    googleId : profile.id
                 }).save().then((newUser) =>{
                     console.log("new user",newUser);
                     done(null,newUser);
