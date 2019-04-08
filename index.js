@@ -20,7 +20,7 @@ app.get('/login',(req,res)=>{
 });
 
 app.get('/google',passport.authenticate('google',{
-    scope: ['profile','email']
+    scope: ['profile']
 }));
 
 app.get('/google/callback',passport.authenticate('google'),(req,res)=>{
