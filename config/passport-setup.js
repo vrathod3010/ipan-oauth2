@@ -28,7 +28,7 @@ passoprt.use(
         //     if(currentUser){
         //         //already have the user
         //         console.log('user is: ',currentUser);
-                done(null);
+                done(profile);
         //     }else{
         //         //create a new user
         //         new User({
