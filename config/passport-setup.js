@@ -12,13 +12,23 @@ passoprt.use(
     },(accessToken,refreshToken,profile,done)=>{
         //passport callback function
         //console.log(profile.email);
-        new User({
-            username : profile.name,
-            googleId : profile.sub,
-            emailId : profile.email
-        }).save().then((newUser) =>{
-            console.log("new user created"+newUser)
-        })
+
+        User.findOne({emailId: profile.email}).then((currentUser)=>{
+            if(currentUser){
+                //already have the user
+                console.log('user is: ',currentUser);
+            }else{
+                //create a new user
+                new User({
+                    username : profile.name,
+                    googleId : profile.sub,
+                    emailId : profile.email
+                }).save().then((newUser) =>{
+                    console.log("new user created"+newUser)
+                });
+            }
+        });
+     
     })
 
     
