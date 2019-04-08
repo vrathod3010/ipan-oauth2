@@ -11,7 +11,7 @@ passport.use(new GoogleStrategy({
     callbackURL: "https://oauth-ipan2.herokuapp.com/google/callback"
   },
   function(accessToken, refreshToken, profile, cb) {
-    User.findOrCreate({ googleId: profile.id }, function (err, user) {
+    User.findOrCreate({ googleId: profile.sub }, function (err, user) {
       return cb(err, user);
     });
   }
