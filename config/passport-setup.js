@@ -1,14 +1,16 @@
 const passoprt = require('passport');
 const GoogleStrategy = require('passport-google-oauth20');
+const keys = require('./keys');
 
 passoprt.use(
     new GoogleStrategy({
         //options for the google start
-        callbackURL : 'https://oauth-ipan2.herokuapp.com/google/callback',
-        clientID : '147888834235-0nm274au2jl9p20blfedfqb8q63o8rg5.apps.googleusercontent.com',
+        callbackURL : keys.google.callbackURL,
+        clientID : keys.google.clientID,
         clientSecret : 'w_C0BHDE4U1FJJ60ppJBPEQb'
-    },()=>{
+    },(accessToken,refreshToken,profile,done)=>{
         //passport callback function
+        console.log(profile);
     })
 
     
