@@ -15,33 +15,29 @@ passport.deserializeUser((id, done) => {
     });
 });
 
-
 passport.use(
     new GoogleStrategy({
-        //options for the google start
-        callbackURL : 'https://oauth-ipan2.herokuapp.com/google/callback',
-        clientID : keys.google.clientID,
-        clientSecret : keys.google.clientSecret
-    },(accessToken,refreshToken,profile,done)=>{
-        //passport callback function
-        console.log(profile);
-
-        User.findOne({googleId: profile.id}).then((currentUser)=>{
+        // options for google strategy
+        clientID: keys.google.clientID,
+        clientSecret: keys.google.clientSecret,
+        callbackURL: 'https://oauth-ipan2.herokuapp.com/google/callback'
+    }, (accessToken, refreshToken, profile, done) => {
+        // check if user already exists in our own db
+        User.findOne({googleId: profile.id}).then((currentUser) => {
             if(currentUser){
-                //already have the user
-                console.log('user is: ',currentUser);
-                done(null,currentUser);
-            }else{
-                //create a new user
+                // already have this user
+                console.log('user is: ', currentUser);
+                done(null, currentUser);
+            } else {
+                // if not, create user in our db
                 new User({
-                    googleId : profile.id
-                }).save().then((newUser) =>{
-                    console.log("new user",newUser);
-                    done(null,newUser);
+                    googleId: profile.id,
+                    username: profile.displayName
+                }).save().then((newUser) => {
+                    console.log('created new user: ', newUser);
+                    done(null, newUser);
                 });
             }
         });
     })
-
-    
-)
+);
