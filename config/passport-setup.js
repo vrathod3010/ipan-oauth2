@@ -21,7 +21,7 @@ passport.use(
         // options for google strategy
         clientID: keys.google.clientID,
         clientSecret: keys.google.clientSecret,
-        callbackURL: '/google/callback'
+        callbackURL: 'https://oauth-ipan2.herokuapp.com/google/callback'
     }, (accessToken, refreshToken, profile, done) => {
         // check if user already exists in our own db
         User.findOne({googleId: profile.sub}).then((currentUser) => {
