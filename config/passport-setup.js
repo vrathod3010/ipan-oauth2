@@ -24,22 +24,22 @@ passoprt.use(
         //passport callback function
         console.log(profile.name.givenName);
 
-        User.findOne({username: profile.name.givenName}).then((currentUser)=>{
-            if(currentUser){
-                //already have the user
-                console.log('user is: ',currentUser);
-                done(null,currentUser);
-            }else{
-                //create a new user
-                new User({
-                    username : profile.name.givenName,
-                    googleId : profile.sub
-                }).save().then((newUser) =>{
-                    console.log("new user",newUser);
-                    done(null,newUser);
-                });
-            }
-        });
+        // User.findOne({username: profile.name.givenName}).then((currentUser)=>{
+        //     if(currentUser){
+        //         //already have the user
+        //         console.log('user is: ',currentUser);
+                done(null);
+        //     }else{
+        //         //create a new user
+        //         new User({
+        //             username : profile.name.givenName,
+        //             googleId : profile.sub
+        //         }).save().then((newUser) =>{
+        //             console.log("new user",newUser);
+        //             done(null,newUser);
+        //         });
+        //     }
+        // });
      
     })
 
