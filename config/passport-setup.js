@@ -24,7 +24,7 @@ passport.use(
         clientSecret : keys.google.clientSecret
     },(accessToken,refreshToken,profile,done)=>{
         //passport callback function
-        console.log(profile.sub);
+        console.log(profile);
 
         User.findOne({googleId: profile.sub}).then((currentUser)=>{
             if(currentUser){
