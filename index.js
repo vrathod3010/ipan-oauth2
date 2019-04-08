@@ -23,8 +23,8 @@ app.get('/google',passport.authenticate('google',{
     scope: ['profile']
 }));
 
-app.get('/google/callback',(req,res)=>{
-    res.send("callback comes here");
+app.get('/google/callback',passport.authenticate('google'),(req,res)=>{
+    res.send(req.user);
 });
 
 app.get('/logout',(req,res)=>{
