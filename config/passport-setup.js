@@ -3,6 +3,17 @@ const GoogleStrategy = require('passport-google-oauth20');
 const keys = require('./keys');
 const User = require('../models/user-models');
 
+
+passoprt.serializeUser((user,done)=>{
+    done(null,user.name);
+});
+
+passoprt.deserializeUser((name,done)=>{
+    User.findById(name).then((user)=>{
+        done(null,user.name);
+    });
+});
+
 passoprt.use(
     new GoogleStrategy({
         //options for the google start
@@ -13,20 +24,21 @@ passoprt.use(
         //passport callback function
         console.log(profile.name);
 
-        // User.findOne({emailId: profile.email}).then((currentUser)=>{
-        //     if(currentUser){
-        //         //already have the user
-        //         console.log('user is: ',currentUser);
-        //     }else{
-        //         //create a new user
-        //         new User({
-        //             username : profile.name,
-        //             googleId : profile.sub
-        //         }).save().then((newUser) =>{
-        //             console.log("new user created"+newUser)
-        //         });
-        //     }
-        // });
+        User.findOne({username: profile.name}).then((currentUser)=>{
+            if(currentUser){
+                //already have the user
+                //console.log('user is: ',currentUser);
+                done(null,currentUser);
+            }else{
+                //create a new user
+                new User({
+                    username : profile.name,
+                    googleId : profile.sub
+                }).save().then((newUser) =>{
+                    done(null,newUser);
+                });
+            }
+        });
      
     })
 
