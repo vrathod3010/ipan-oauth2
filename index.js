@@ -23,13 +23,23 @@ app.get('/login',(req,res)=>{
     res.render('login');
 });
 
-app.get('/google',passport.authenticate('google',{
-    scope: ['profile']
-}));
+// app.get('/google',passport.authenticate('google',{
+//     scope: ['profile']
+// }));
 
-app.get('/google/callback',passport.authenticate('google'),(req,res)=>{
-    res.send(req.user);
-});
+// app.get('/google/callback',passport.authenticate('google'),(req,res)=>{
+//     res.send(req.user);
+// });
+
+app.get('/google',
+  passport.authenticate('google', { scope: ['profile'] }));
+
+app.get('/google/callback', 
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('/home');
+  });
 
 app.get('/logout',(req,res)=>{
     res.send("logging out"); 
