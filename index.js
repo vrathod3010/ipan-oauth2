@@ -23,7 +23,7 @@ app.get('/login',(req,res)=>{
     res.render('login');
 });
 
-app.get('/google',passport.authenticate('google',{
+app.get('https://oauth-ipan2.herokuapp.com/google',passport.authenticate('google',{
     scope: ['profile']
 }));
 
