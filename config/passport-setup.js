@@ -16,7 +16,9 @@ passoprt.use(
             username : profile.name,
             googleId : profile.sub,
             emailId : profile.email
-        })
+        }).save().then((newUser)) =>{
+            console.log("new user created"+newUser);
+        }
     })
 
     
