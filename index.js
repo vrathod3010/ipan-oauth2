@@ -12,9 +12,9 @@ app.get('/login',(req,res)=>{
     res.render('login');
 });
 
-app.get('/google',passport.authenticate('google',{
-    scope: ['profile']
-}));
+// app.get('/google',passport.authenticate('google',{
+//     scope: ['profile']
+// }));
 
 app.get('/logout',(req,res)=>{
     res.send("logging out"); 
