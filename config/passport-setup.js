@@ -23,6 +23,8 @@ passport.use(
         callbackURL: 'https://oauth-ipan2.herokuapp.com/google/callback'
     }, (accessToken, refreshToken, profile, done) => {
         // check if user already exists in our own db
+
+        console.log(profile.displayName);
         User.findOne({googleId: profile.id}).then((currentUser) => {
             if(currentUser){
                 // already have this user
